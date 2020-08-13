@@ -1,17 +1,20 @@
+{% load static %}
 <div class="container py-5">
-    <div class="card-deck">
+    {% for p in post %}
+    <div class="card-deck py-2">
         <div class="card">
-            <div class="row">
+            <div class="row ">
                 <div class="col-md-4">
-                    <img src="#" class="img-fluid">
+                    <img src="{{ p.photo.url }}" class="img-fluid">
                 </div>
-                <div class="col-md-8">
-                    <h3 class="card-title mt-2">aaaaaaaaaaaa</h3>
-                    <p>aaaaaaaaaa</p>
-                    <p><small>Criado por: ismael</small></p>
-                    <p class=""><small>oooi</small></p>
+                <div class="col-md-8 app1">
+                    <h3 class="card-title mt-2">{{ p.title }}</h3>
+                    <p>{{p.summary | safe }}</p>
+                    <p><small>Criado por: {{ p.author }}</small></p>
+                    <p class=""><small>{{ p.created_at }}</small></p>
                 </div>
             </div>
         </div>
     </div>
+    {% endfor %}
 </div>
