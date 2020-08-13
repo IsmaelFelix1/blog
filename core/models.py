@@ -1,12 +1,13 @@
 from django.db import models
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
+from stdimage import StdImageField
 # Create your models here.
 
 
 class Post(models.Model):
     title = models.CharField('Titulo', max_length=255)
-    photo = models.ImageField('Imagem')
+    photo = StdImageField('Imagem', upload_to='fotos')
     summary = RichTextField('Resumo')
     content = RichTextUploadingField('Conteudo')
     author = models.CharField('Autor', max_length=50)
