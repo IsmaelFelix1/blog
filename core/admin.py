@@ -5,3 +5,5 @@ from .models import Post
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     list_display = ('id','title','photo','summary','content','author','created_at')
+    search_fields = ['title']
+    list_filter = ['created_at']
