@@ -1,4 +1,7 @@
 {% load static %}
+<div>
+  <img class="img-fluid " src="{% static 'img/img1.png' %}" style="height: 400px; width: 100%;"/>
+</div>
 <div class="container py-5">
     {% for p in post %}
     <div class="card-deck py-2">
@@ -8,7 +11,9 @@
                     <img src="{{ p.photo.url }}" class="img-fluid">
                 </div>
                 <div class="col-md-8 app1">
-                    <h3 class="card-title mt-2">{{ p.title }}</h3>
+                    <h3 class="card-title mt-2">
+                        <a href="{% url 'detail' id=p.id %}">{{ p.title }}</a>
+                    </h3>
                     <p>{{p.summary | safe }}</p>
                     <p><small>Criado por: {{ p.author }}</small></p>
                     <p class=""><small>{{ p.created_at }}</small></p>
@@ -17,4 +22,29 @@
         </div>
     </div>
     {% endfor %}
+
+    <!-- Paginação -->
+  <nav aria-label="Page navigation example" class="d-flex justify-content-center app1">
+  <ul class="pagination">
+      {% if post.has_previous %}
+    <li class="page-item ">
+      <a class="page-link border-0" href="?page={{ post.previous_page_number}}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+      {% endif %}
+    <li class="page-item py-2">
+        <span>Página {{ post.number }} de {{ post.paginator.num_pages }}</span>
+    </li>
+      {% if post.has_next %}
+    <li class="page-item ">
+      <a class="page-link border-0" href="?page={{ post.next_page_number}}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+      {% endif %}
+  </ul>
+</nav>
+
+    <!-- end-->
 </div>

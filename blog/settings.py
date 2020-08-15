@@ -137,4 +137,17 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
+EMAIL_BACKEND = 'django.core.email.backends.console.EmailBackend'
+
+"""
+Email de produção
+OBS: servidor de email
+EMAIL_HOST = 'localhost'
+EMAIL_HOST_USER = 'auhduahudhuadhudh@gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TSL = True
+EMAIL_HOST_PASSWORD = fusion
+DEFAULT_FROM_EMAIL = contato@gmail.com
+"""
+
 
