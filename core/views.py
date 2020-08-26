@@ -1,12 +1,12 @@
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import TemplateView, FormView, DetailView
+from django.views.generic import TemplateView, FormView, DetailView, ListView
 from .models import Post
 from .forms import ContatoForm
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.utils import timezone
-# Create your views here.
+
 
 #Pagina Index com GetAll
 class IndexView(TemplateView):
@@ -18,6 +18,7 @@ class IndexView(TemplateView):
         post = Post.objects.order_by('-id').all()
         paginator = Paginator(post, self.paginate_by)
         page = self.request.GET.get('page')
+
         try:
             posts = paginator.page(page)
         except PageNotAnInteger:
@@ -26,6 +27,17 @@ class IndexView(TemplateView):
             posts = paginator.page(paginator.num_pages)
         context['post'] = posts
         return context
+
+
+class SearchResultsView(ListView):
+    model = Post
+    template_name = 'search/search_results.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        object_list = Post.objects.filter(
+            Q(title__icontains=query) | Q(author__icontains=query))
+        return object_list
 
 #Obtendo o get id do objeto
 class PostDetailView(DetailView):
